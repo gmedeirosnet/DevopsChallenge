@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: letscode-frontend
+spec:
+  selector:
+    matchLabels:
+      app: letscode-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: letscode-frontend
+    spec:
+      containers:
+      - name: letscode-frontend
+        image: dig0w/letscode_fe
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: letscode-frontend-svc
+spec:
+  selector:
+    app: letscode-frontend
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
